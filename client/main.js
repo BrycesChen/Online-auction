@@ -589,7 +589,7 @@ module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<!--<div class=\"row\">-->\n  <!--<div class=\"col-sm-12\">-->\n    <!--<div class=\"form-group\">-->\n      <!--<input type=\"text\" class=\"form-control\" placeholder=\"请输入商品名称\"-->\n        <!--[formControl]=\"titleFilter\"-->\n      <!--&gt;-->\n    <!--</div>-->\n  <!--</div>-->\n<!--</div>-->\n<div *ngFor=\"let product of products | async\" class=\"col-md-4 col-sm-4 col-lg-4\">\n  <div class=\"thumbnail\">\n    <img [src]=\"imgUrl\" alt=\"\">\n    <div class=\"caption\">\n      <h4 class=\"pull-right\">{{product.price}}元</h4>\n      <h4><a href=\"#\" [routerLink]=\"['/product', product.id]\">{{product.title}}</a></h4>\n      <p>{{product.desc}}</p>\n    </div>\n    <div>\n      <app-stars [rating]=\"product.rating\"></app-stars>\n    </div>\n  </div>\n</div>\n"
+module.exports = "<div class=\"row\">\n  <div class=\"col-sm-12\">\n    <div class=\"form-group\">\n      <input type=\"text\" class=\"form-control\" placeholder=\"请输入商品名称\"\n        [formControl]=\"titleFilter\"\n      >\n    </div>\n  </div>\n</div>\n<div *ngFor=\"let product of products | async | filter:'title':keyword\" class=\"col-md-4 col-sm-4 col-lg-4\">\n  <div class=\"thumbnail\">\n    <img [src]=\"imgUrl\" alt=\"\">\n    <div class=\"caption\">\n      <h4 class=\"pull-right\">{{product.price}}元</h4>\n      <h4><a href=\"#\" [routerLink]=\"['/product', product.id]\">{{product.title}}</a></h4>\n      <p>{{product.desc}}</p>\n    </div>\n    <div>\n      <app-stars [rating]=\"product.rating\"></app-stars>\n    </div>\n  </div>\n</div>\n"
 
 /***/ }),
 
@@ -606,22 +606,22 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _shared_product_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../shared/product.service */ "./src/app/shared/product.service.ts");
-/* harmony import */ var rxjs_Rx__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! rxjs/Rx */ "./node_modules/rxjs-compat/_esm5/Rx.js");
+/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
+/* harmony import */ var rxjs_Rx__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! rxjs/Rx */ "./node_modules/rxjs-compat/_esm5/Rx.js");
+
 
 
 
 
 var ProductComponent = /** @class */ (function () {
-    // private keyword: string;
-    // private titleFilter: FormControl = new FormControl();
     function ProductComponent(productService) {
+        var _this = this;
         this.productService = productService;
         this.imgUrl = 'http://placehold.it/320x150';
-        // this.titleFilter.valueChanges
-        //   .debounceTime(500)
-        //   .subscribe(
-        //   value => this.keyword = value
-        // )
+        this.titleFilter = new _angular_forms__WEBPACK_IMPORTED_MODULE_3__["FormControl"]();
+        this.titleFilter.valueChanges
+            .debounceTime(500)
+            .subscribe(function (value) { return _this.keyword = value; });
     }
     ProductComponent.prototype.ngOnInit = function () {
         this.products = this.productService.getProducts();
@@ -857,7 +857,7 @@ var WebSocketService = /** @class */ (function () {
         });
     };
     WebSocketService.prototype.sendMessage = function (message) {
-        this.ws.send(JSON.stringify(message)); // 穿过来的参数是对象，但是send消息的格式是字符串格式的；
+        this.ws.send(JSON.stringify(message)); // 传过来的参数是对象，但是send消息的格式是字符串格式的；
     };
     WebSocketService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])(),
